@@ -12,27 +12,23 @@ jobs:
       - name: Lint
         run: npm run lint
   test:
+    needs: link
     runs-on: ubuntu-latest
     steps:
       - name: Fetch
         uses: actions/checkout@v5
       - name: Install dependencies
         run: npm ci
-      - name: Lint
-        run: npm run lint
       - name: Test
         run: npm run test
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Fetch
         uses: actions/checkout@v5
       - name: Install dependencies
         run: npm ci
-      - name: Lint
-        run: npm run lint
-      - name: Test
-        run: npm run test
       - name: Build
         run: npm run build
       - name: Deploy
